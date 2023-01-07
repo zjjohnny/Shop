@@ -6,7 +6,7 @@
                     <img class="myImg" src="../../assets/1.jpg" alt="">
                     <h1 class="tittle">万能小商铺</h1>
                 </div>
-                <el-button type="info">退出</el-button>
+                <el-button type="info" @click="loginOut">退出</el-button>
             </el-header>
             <el-container>
                 <el-aside class="commom-Aside" width="200px">
@@ -44,8 +44,24 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+import { useRouter } from 'vue-router';
 export default{
-    name:"layout"
+    name:"layout",
+    setup(){
+        const store=useStore()
+        const router=useRouter()
+        const loginOut=()=>{
+            localStorage.removeItem("loginData")
+            store.commit('setUserInfo',{});
+            router.push({
+                path:"/login"
+            })
+        }
+        return{
+            loginOut
+        }
+    }
 }
 </script>
 <style scoped>
